@@ -26,12 +26,13 @@ const userSchema = new Schema({
     type: String,
     default: null,
   },
+  favorites: [{ type: String }],
 });
 
 userSchema.methods.setPassword = async function (password) {
   this.password = await bCrypt.hash(password, 12);
 };
-userSchema.methods.deCryptPassword = async function (password) {
+userSchema.methods.validPassword = async function (password) {
   return bCrypt.compare(password, this.password);
 };
 
